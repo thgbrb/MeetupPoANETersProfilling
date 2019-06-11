@@ -27,6 +27,9 @@ namespace Objetos
             return faturas;
         }
 
+        public static List<Fatura> FaturaEmpty
+            => new List<Fatura>();
+
         public static Validacao Validacao(Fatura fatura)
         {
             var validacao = new Validacao()
@@ -35,7 +38,7 @@ namespace Objetos
                 FaturaId = fatura.Id
             };
 
-            Thread.Sleep(800);
+            Thread.Sleep(300);
 
             Console.WriteLine($"Validação da fatura {fatura.Id} concluída.");
 
@@ -52,8 +55,19 @@ namespace Objetos
 
                     var time = fatura.CNPJ.Length;
 
-                    Thread.Sleep(time * 50);
+                    Thread.Sleep(30 + time);
                 }
+
+                Console.WriteLine($"Atualização da fatura {fatura.Id} concluída.");
+            }
+
+            public static void UpdateStatus(Fatura fatura)
+            {
+                // Simula um processamento e acesso a banco de dados
+
+                var time = fatura.CNPJ.Length;
+
+                Thread.Sleep(30 + time);
 
                 Console.WriteLine($"Atualização da fatura {fatura.Id} concluída.");
             }
@@ -64,7 +78,7 @@ namespace Objetos
             public static void Update(string info)
             {
                 // Simula acesso ao banco de dados
-                Thread.Sleep(300);
+                Thread.Sleep(75);
 
                 Console.WriteLine($"Atualização de status de serviço concluída. {info}");
             }

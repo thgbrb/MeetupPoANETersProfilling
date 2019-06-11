@@ -20,9 +20,24 @@ namespace WindowsServiceOriginal
                     // ServiceLocator de Repositorios
                     // Objeto de configuração de e-mail
 
+                    var iteration = 0;
+
                     while (true)
                     {
-                        var faturas = Mocks.Faturas(qtdFaturas: 3000);
+                        var faturas = Mocks.FaturaEmpty;
+
+                        // Numero maximo de iterações na PoC
+                        if (iteration < Config.MAX_WHILE_ITERATION)
+                        {
+                            faturas = Mocks.Faturas(qtdFaturas: Config.NUMBER_OF_INVOICE);
+
+                            iteration++;
+                        }
+                        else
+                        {
+                            // Cannot break :(
+                            // break;
+                        }
 
                         if (faturas.Any())
                         {
@@ -55,7 +70,8 @@ namespace WindowsServiceOriginal
                             });
                             task.Start();
                         }
-                        Thread.Sleep(15 * 1000);
+
+                        Thread.Sleep(Config.POOLING_INTERVAL);
                     }
                 }
             }
